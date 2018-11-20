@@ -7,5 +7,6 @@
 </ion-header>
 
 <ion-content padding>
+  <img *ngIf="preview !== null" [src]="preview" alt="" class="preview">
   <ion-button id="upload_widget_opener" (click)="uploadPDF()" color="primary">Upload PDF</ion-button>
 </ion-content>
