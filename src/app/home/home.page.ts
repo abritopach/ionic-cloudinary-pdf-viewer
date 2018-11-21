@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Slides } from '@ionic/angular';
 
+import { CloudinaryApiService } from './../services/cloudinary-api.service';
+
 declare var cloudinary;
 @Component({
   selector: 'app-home',
@@ -20,7 +22,7 @@ export class HomePage implements OnInit {
   };
   @ViewChild('slides') slides: Slides;
 
-  constructor() {
+  constructor(private cloudinaryApiService: CloudinaryApiService) {
     console.log('HomePage::constructor | method called');
   }
 
@@ -39,6 +41,16 @@ export class HomePage implements OnInit {
       );
     }
     console.log('pages', this.pages);
+
+    /*
+    this.cloudinaryApiService.fetchResourcesFromFolder('pdf-viewer').subscribe(
+      result => {
+        console.log('result', result);
+      },
+      err => {
+        console.log('err', err);
+    });
+    */
   }
 
   next() {
