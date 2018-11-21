@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 
+import { PdfCarouselComponent } from './../components/pdf-carousel/pdf-carousel.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -18,6 +20,7 @@ import { HomePage } from './home.page';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, PdfCarouselComponent],
+  entryComponents: [PdfCarouselComponent]
 })
 export class HomePageModule {}

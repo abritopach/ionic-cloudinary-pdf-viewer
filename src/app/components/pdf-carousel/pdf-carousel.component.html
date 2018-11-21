@@ -1,0 +1,6 @@
+<div class="image-thumbnail">
+    <div *ngFor="let pdf of pdfs; let i=index;" tappable>
+      <ion-img [src]="pdf.src"></ion-img>
+      <p text-center>PDF</p>
+    </div>
+</div>

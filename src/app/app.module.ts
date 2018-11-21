@@ -11,6 +11,11 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { CloudinaryModule } from '@cloudinary/angular-5.x';
+import * as  Cloudinary from 'cloudinary-core';
+
+import cloudinaryConfig from './config/config';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -18,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CloudinaryModule.forRoot(Cloudinary, cloudinaryConfig),
   ],
   providers: [
     StatusBar,
