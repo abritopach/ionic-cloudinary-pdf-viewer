@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Slides } from '@ionic/angular';
 
 declare var cloudinary;
 @Component({
@@ -6,13 +7,49 @@ declare var cloudinary;
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
   private readonly CLOUD_NAME = 'CLOUD_NAME';
   private readonly UPLOAD_PRESET = 'UPLOAD_PRESET';
   file: any;
   preview: any = null;
   pages: any[] = [];
+  pageCount = 82;
+  slideOpts = {
+    effect: 'flip'
+  };
+  @ViewChild('slides') slides: Slides;
+
+  constructor() {
+    console.log('HomePage::constructor | method called');
+  }
+
+  ngOnInit() {
+    // https://res.cloudinary.com/salsapp/image/upload/c_limit,h_60,w_90/v1542795828/pdf-viewer/ITEM_1890_EBLOG_2546_ejrzgc.jpg
+    this.preview = `https://res.cloudinary.com/${this.CLOUD_NAME}/image/upload/w_350,h_400,c_fill,pg_1/v1542795828/pdf-viewer/` +
+    `ITEM_1890_EBLOG_2546_ejrzgc.jpg`;
+
+    for (let i = 1; i <= this.pageCount; i++) {
+      this.pages.push(
+        {
+          url: `https://res.cloudinary.com/${this.CLOUD_NAME}/image/upload/w_300,h_450,c_fill,pg_${i}/v1542795828/pdf-viewer/` +
+          `ITEM_1890_EBLOG_2546_ejrzgc.jpg`,
+          page: i
+        }
+      );
+    }
+    console.log('pages', this.pages);
+  }
+
+  next() {
+    console.log('HomePage::next | method called');
+    this.slides.slideNext();
+  }
+
+  prev() {
+    console.log('HomePage::prev | method called');
+    this.slides.slidePrev();
+  }
 
   uploadPDF() {
     console.log('HomePage::uploadPDF | method called');
@@ -35,12 +72,12 @@ export class HomePage {
         this.file = result.info;
         console.log('file', this.file);
         this.preview = `https://res.cloudinary.com/${this.CLOUD_NAME}/image/upload/w_350,h_400,c_fill,pg_1/` +
-        `${this.file.public_id}.${this.file.format}`;
+        `${this.file.public_id}.jpg`;
         for (let i = 1; i <= this.file.pages; i++) {
           this.pages.push(
             {
               url: `https://res.cloudinary.com/${this.CLOUD_NAME}/image/upload/w_200,h_250,c_fill,pg_${i}/` +
-              `${this.file.public_id}.${this.file.format}`,
+              `${this.file.public_id}.jpg`,
               page: i
             }
           );

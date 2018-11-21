@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
       PDF Viewer with Ionic and Cloudinary
     </ion-title>
@@ -7,6 +7,27 @@
 </ion-header>
 
 <ion-content padding>
-  <img *ngIf="preview !== null" [src]="preview" alt="" class="preview">
-  <ion-button id="upload_widget_opener" (click)="uploadPDF()" color="primary">Upload PDF</ion-button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-slides #slides [options]="slideOpts">
+            <ion-slide *ngFor="let slide of pages">
+              <img [src]="slide.url" alt="slide.page">
+            </ion-slide>
+            <ion-button float-left color="primary" slot="start" (click)="prev()">Prev</ion-button>
+            <ion-button float-right color="primary" slot="end" (click)="next()">Next</ion-button>
+        </ion-slides>
+      </ion-col>
+    </ion-row>
+    <!--
+    <ion-row>
+        <img *ngIf="preview !== null" [src]="preview" alt="" class="preview">
+    </ion-row>
+    -->
+    <br>
+    <ion-row>
+        <ion-button id="upload_widget_opener" (click)="uploadPDF()" color="primary">Upload PDF</ion-button>
+    </ion-row>
+  </ion-grid>
 </ion-content>
