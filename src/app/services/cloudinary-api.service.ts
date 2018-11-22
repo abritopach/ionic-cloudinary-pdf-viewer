@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
+import { map, retryWhen, timeout, delay } from 'rxjs/operators';
 import { Cloudinary } from '@cloudinary/angular-5.x';
+
+import ConfigCloudinary from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +32,16 @@ export class CloudinaryApiService {
     return this.http
         .get<any[]>(url)
         .pipe(map((data: any) => data.resources ));
+  }
+
+  getPDFNumberPages(pdf): Observable<any> {
+    return this.http
+    // Type-checking the response => .get<any>
+    .post<any>(ConfigCloudinary.api_url + `numberPagesPDF`, {pdf: pdf})
+    .pipe(
+      map((data: any) => data),
+      retryWhen(error => error.pipe(delay(500))),
+      timeout(5000)
+    );
   }
 }

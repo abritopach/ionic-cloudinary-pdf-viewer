@@ -3,6 +3,8 @@ import { Slides } from '@ionic/angular';
 
 import ConfigCloudinary from '../config/config';
 
+import { CloudinaryApiService } from './../services/cloudinary-api.service';
+
 declare var cloudinary;
 @Component({
   selector: 'app-home',
@@ -21,7 +23,7 @@ export class HomePage implements OnInit {
   };
   @ViewChild('slides') slides: Slides;
 
-  constructor() {
+  constructor(private cloudinaryApiService: CloudinaryApiService) {
     console.log('HomePage::constructor | method called');
   }
 
@@ -43,15 +45,25 @@ export class HomePage implements OnInit {
 
   receivePdf($event) {
     console.log('HomePage::receivePdf | method called', $event);
+    this.slides.slideTo(0, 2000);
     this.pages = [];
-    const i = 1;
-    this.pages.push(
-      {
-        url: `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_300,h_450,c_fill,pg_${i}/v1542795828/` +
-        `${$event.public_id}.jpg`,
-      }
-    );
-    console.log(this.pages);
+    this.cloudinaryApiService.getPDFNumberPages($event.public_id).subscribe(
+      result => {
+        console.log('result', result);
+        for (let i = 1; i <= result.pages; i++) {
+          this.pages.push(
+            {
+              url: `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_300,h_450,c_fill,pg_${i}/v1542795828/` +
+              `${$event.public_id}.jpg`,
+              page: i
+            }
+          );
+        }
+        console.log(this.pages);
+      },
+      err => {
+        console.log('err', err);
+    });
   }
 
   next() {
