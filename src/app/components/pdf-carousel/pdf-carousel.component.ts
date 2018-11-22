@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { CloudinaryApiService } from './../../services/cloudinary-api.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { CloudinaryApiService } from './../../services/cloudinary-api.service';
 export class PdfCarouselComponent implements OnInit {
 
   pdfs: any;
+  selected: Number = -1;
+  @Output() pdfEvent = new EventEmitter<any>();
 
   constructor(private cloudinaryApiService: CloudinaryApiService) {
   }
@@ -25,6 +27,12 @@ export class PdfCarouselComponent implements OnInit {
       err => {
         console.log('err', err);
     });
+  }
+
+  selectedPDF(pdf, i) {
+    console.log('PdfCarouselComponent::constructor | method called', pdf);
+    this.selected = i;
+    this.pdfEvent.emit(pdf);
   }
 
 }

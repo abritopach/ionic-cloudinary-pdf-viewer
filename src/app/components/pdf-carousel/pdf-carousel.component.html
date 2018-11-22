@@ -1,6 +1,6 @@
 <div class="image-thumbnail">
-    <div *ngFor="let pdf of pdfs; let i=index;" tappable>
-      <ion-img [src]="pdf.src"></ion-img>
+    <div *ngFor="let pdf of pdfs; let i=index;" tappable (click)="selectedPDF(pdf, i)">
+      <ion-img [ngStyle]="{'border':i === selected ? '1px solid grey' : 'none' }" [src]="pdf.src"></ion-img>
       <p text-center>PDF</p>
     </div>
 </div>
