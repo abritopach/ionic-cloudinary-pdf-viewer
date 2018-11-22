@@ -11,9 +11,26 @@ This project shows you how to:
 
 Technologies: Angular, Ionic, Cloudinary, TypeScript.
 
+![Technologies](readme_resources/technologies.jpg "Technologies")
+
+## App Example
+
+![App](readme_resources/app.gif "App")
+
 ## Configuration
 
-There are 2 settings you need to change for this demo to work. Edit config/config.ts file:
+There are 2 settings you need to change for this demo to work.
+
+Edit server/routes/index.js file:
+
+cloudinary.config({
+  cloud_name: 'CLOUD_NAME', Should be change to the cloud name you received when you registered for a Cloudinary account.
+  api_key: 'API_KEY', Should be change to the api key you received when you registered for a Cloudinary account.
+  api_secret: 'API_SECRET' Should be change to the api secret you received when you registered for a Cloudinary account.
+});
+
+
+Edit src/app/config/config.ts file:
 
 cloud_name - Should be change to the cloud name you received when you registered for a Cloudinary account.
 upload_preset - You should first "Enable unsigned uploads" in the "Upload Settings" of your Cloudinary console and assign the resulting preset name to that field. Note, you may want to tweak and modify the upload preset's parameters.
