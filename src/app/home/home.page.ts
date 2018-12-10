@@ -28,13 +28,13 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    this.preview = `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_350,h_400,c_fill,pg_1/` +
+    this.preview = `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_auto:100:450,c_fill,pg_1/` +
     `v1542795828/pdf-viewer/ITEM_1890_EBLOG_2546_ejrzgc.jpg`;
 
     for (let i = 1; i <= this.pageCount; i++) {
       this.pages.push(
         {
-          url: `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_300,h_450,c_fill,pg_${i}/` +
+          url: `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_auto:100:450,c_fill,pg_${i}/` +
           `v1542795828/pdf-viewer/ITEM_1890_EBLOG_2546_ejrzgc.jpg`,
           page: i
         }
@@ -96,12 +96,12 @@ export class HomePage implements OnInit {
       if (result.event === 'success') {
         this.file = result.info;
         console.log('file', this.file);
-        this.preview = `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_350,h_400,c_fill,pg_1/` +
+        this.preview = `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_auto:100:450,c_fill,pg_1/` +
         `${this.file.public_id}.jpg`;
         for (let i = 1; i <= this.file.pages; i++) {
           this.pages.push(
             {
-              url: `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_200,h_250,c_fill,pg_${i}/` +
+              url: `https://res.cloudinary.com/${ConfigCloudinary.cloud_name}/image/upload/w_auto:100:450,c_fill,pg_${i}/` +
               `${this.file.public_id}.jpg`,
               page: i
             }
