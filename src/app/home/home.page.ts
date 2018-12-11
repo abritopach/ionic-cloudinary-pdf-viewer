@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Slides } from '@ionic/angular';
+import { Slides, LoadingController } from '@ionic/angular';
 
 import ConfigCloudinary from '../config/config';
 
@@ -22,8 +22,9 @@ export class HomePage implements OnInit {
     effect: 'flip'
   };
   @ViewChild('slides') slides: Slides;
+  loading: any;
 
-  constructor(private cloudinaryApiService: CloudinaryApiService) {
+  constructor(private cloudinaryApiService: CloudinaryApiService, private loadingCtrl: LoadingController) {
     console.log('HomePage::constructor | method called');
   }
 
@@ -45,6 +46,7 @@ export class HomePage implements OnInit {
 
   receivePdf($event) {
     console.log('HomePage::receivePdf | method called', $event);
+    this.presentLoading();
     this.slides.slideTo(0, 2000);
     this.pages = [];
     this.cloudinaryApiService.getPDFNumberPages($event.public_id).subscribe(
@@ -60,6 +62,7 @@ export class HomePage implements OnInit {
           );
         }
         console.log(this.pages);
+        setTimeout(() => this.dismissLoading(), 3000);
       },
       err => {
         console.log('err', err);
@@ -110,6 +113,18 @@ export class HomePage implements OnInit {
       }
     }
     );
+    }
+
+    async presentLoading() {
+      this.loading = await this.loadingCtrl.create({
+        message: 'Please wait, loading PDF...',
+      });
+      return await this.loading.present();
+    }
+
+    async dismissLoading() {
+      this.loading.dismiss();
+      this.loading = null;
     }
 
 }
