@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Slides, LoadingController } from '@ionic/angular';
+import { LoadingController, IonSlides } from '@ionic/angular';
 
 import ConfigCloudinary from '../config/config';
 
@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
   slideOpts = {
     effect: 'flip'
   };
-  @ViewChild('slides') slides: Slides;
+  @ViewChild('slides') slides: IonSlides;
   loading: any;
 
   constructor(private cloudinaryApiService: CloudinaryApiService, private loadingCtrl: LoadingController) {
